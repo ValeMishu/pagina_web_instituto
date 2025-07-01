@@ -1,0 +1,13 @@
+.d-item{
+    height: 800px;}
+    
+.d-img{
+    height: 400px;
+    object-fit: cover;
+    /*filter: brightness(0.6);*/
+    margin: 10px;
+}
+
+.display-1{
+    text-align: center;
+}

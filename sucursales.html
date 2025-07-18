@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sucursales - Instituto</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Leaflet CSS para el mapa -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+ <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand text-white" href="#">Instituto De Capacitación</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="navbar-nav">
+          <a class="nav-link" href="paginaWeb.html">Inicio</a>
+          <a class="nav-link" href="nosotros.html">Nosotros</a>
+          <a class="nav-link" href="cursos.html">Cursos</a>
+          <a class="nav-link" href="sucursales.html">Sucursales</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <main class="container mt-5">
+    <h1 class="text-center text-success mb-4">Nuestras Sucursales</h1>
+
+    <!-- Lista textual de sucursales -->
+    <ul class="list-group mb-4">
+      <li class="list-group-item">Santiago - Av. Libertador 123</li>
+      <li class="list-group-item">Valparaíso - Av. Alemania 456</li>
+      <li class="list-group-item">Concepción - Calle Carrera 789</li>
+      <li class="list-group-item">La Serena - Ruta 5 Norte 321</li>
+      <li class="list-group-item">Temuco - Av. Caupolicán 654</li>
+    </ul>
+
+    <!-- Botones para centrar el mapa -->
+    <div class="text-center mb-4">
+      <h5>Selecciona una sucursal para ubicarla en el mapa:</h5>
+      <div class="btn-group" role="group" aria-label="Sucursales">
+        <button class="btn btn-outline-primary" onclick="centrarSucursal(0)">Santiago</button>
+        <button class="btn btn-outline-primary" onclick="centrarSucursal(1)">Valparaíso</button>
+        <button class="btn btn-outline-primary" onclick="centrarSucursal(2)">Concepción</button>
+        <button class="btn btn-outline-primary" onclick="centrarSucursal(3)">La Serena</button>
+        <button class="btn btn-outline-primary" onclick="centrarSucursal(4)">Temuco</button>
+      </div>
+    </div>
+
+    <!-- Mapa -->
+    <div id="map" style="height: 500px; width: 100%; margin-bottom: 30px;"></div>
+
+    <div class="text-center">
+      <a href="paginaWeb.html" class="btn btn-dark">Volver al menú principal</a>
+    </div>
+  </main>
+
+  <footer class="bg-dark text-white text-center py-3">
+    Valeria Pizarro - Luis Sanhueza - Felipe Wastavino - Diseño y Programación - 2025
+  </footer>
+  
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- Script para el mapa y botones -->
+  <script>
+    const map = L.map('map').setView([-33.4489, -70.6693], 6); // Centro en Santiago
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    const sucursales = [
+      {
+        nombre: "Sucursal Santiago - Av. Libertador 123",
+        lat: -33.4489,
+        lng: -70.6693
+      },
+      {
+        nombre: "Sucursal Valparaíso - Av. Alemania 456",
+        lat: -33.0458,
+        lng: -71.6197
+      },
+      {
+        nombre: "Sucursal Concepción - Calle Carrera 789",
+        lat: -36.8201,
+        lng: -73.0444
+      },
+      {
+        nombre: "Sucursal La Serena - Ruta 5 Norte 321",
+        lat: -29.9045,
+        lng: -71.2489
+      },
+      {
+        nombre: "Sucursal Temuco - Av. Caupolicán 654",
+        lat: -38.7359,
+        lng: -72.5904
+      }
+    ];
+
+    const marcadores = sucursales.map(sucursal => {
+      return L.marker([sucursal.lat, sucursal.lng])
+        .addTo(map)
+        .bindPopup(`<strong>${sucursal.nombre}</strong>`);
+    });
+
+    function centrarSucursal(index) {
+      const sucursal = sucursales[index];
+      map.setView([sucursal.lat, sucursal.lng], 15);
+      marcadores[index].openPopup();
+    }
+  </script>
+  
+</body>
+</html>
